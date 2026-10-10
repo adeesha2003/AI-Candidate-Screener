@@ -1,30 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="space-y-16">
+<div class="space-y-20 py-2">
 
-    <!-- Clean Hero Section -->
-    <div class="text-center max-w-3xl mx-auto space-y-6 pt-4">
-        <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
-            High-Precision Resume Screening, <span class="text-blue-600">Without Semantic Drift.</span>
-        </h1>
+    <!-- Seamless Natural Hero (No heavy enclosing boxes) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
         
-        <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Evaluate technical resumes with fine-tuned Sentence-BERT embeddings, multi-span tenure verification, and calibrated domain baselines.
-        </p>
+        <!-- Left: Text Column -->
+        <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-50 border border-sky-200/80 rounded-full text-sky-700 text-xs font-semibold">
+                <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+                AI in action &middot; Automated Technical Screening
+            </div>
 
-        <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <a href="/screen" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-sm hover:shadow transition-all">
-                Launch Batch Screener
-            </a>
-            <a href="/dashboard" class="px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold rounded-xl border border-slate-300 shadow-sm transition-all">
-                System Analytics
-            </a>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+                AI in action: <br />
+                <span class="text-blue-600">Automatically find the best candidates</span>
+            </h1>
+            
+            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl font-normal">
+                Learn how AI can be used to automatically find and rank candidates for specific engineering roles, saving recruiters significant time and effort without semantic drift.
+            </p>
+
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+                <a href="/screen" class="px-7 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-sm hover:shadow transition-all flex items-center gap-2">
+                    Launch Batch Screener
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+                <a href="/dashboard" class="px-7 py-3 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 shadow-2xs transition-all">
+                    Explore Analytics
+                </a>
+            </div>
         </div>
+
+        <!-- Right: Natural Graphic Display (No clunky double border frames) -->
+        <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full">
+                <!-- Soft background glow instead of hard borders -->
+                <div class="absolute inset-0 bg-sky-100/60 rounded-3xl filter blur-xl transform -rotate-1 scale-95 -z-10"></div>
+                <img src="{{ url_for('static', filename='images/dashboard-preview.png') }}" 
+                     alt="JobFit AI Screening Platform" 
+                     class="w-full h-auto rounded-2xl object-cover shadow-xl shadow-slate-200/60 border border-slate-100">
+            </div>
+        </div>
+
     </div>
 
-    <!-- Verified Performance Numbers -->
-    <div class="bg-white border border-slate-200/90 rounded-2xl p-8 sm:p-10 shadow-sm">
+    <!-- Verified Performance Numbers Strip -->
+    <div class="bg-white border border-slate-200/90 rounded-2xl p-8 sm:p-10 shadow-xs">
         <div class="text-center mb-8">
             <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Empirically Validated Evaluation Benchmarks</h2>
         </div>
@@ -32,29 +57,31 @@
             <div class="pt-2 md:pt-0">
                 <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">100.0%</span>
                 <p class="text-xs font-medium text-slate-500 mt-1">Classification Accuracy</p>
+                <p class="text-[11px] text-slate-400">12/12 ground truth profiles</p>
             </div>
             <div class="pt-4 md:pt-0">
                 <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">4.81%</span>
                 <p class="text-xs font-medium text-slate-500 mt-1">Mean Absolute Error (MAE)</p>
+                <p class="text-[11px] text-slate-400">Benchmark divergence</p>
             </div>
             <div class="pt-4 md:pt-0">
                 <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">+39.03%</span>
                 <p class="text-xs font-medium text-slate-500 mt-1">Discrimination Gap</p>
+                <p class="text-[11px] text-slate-400">Tech vs non-tech profiles</p>
             </div>
             <div class="pt-4 md:pt-0">
                 <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">0.00%</span>
                 <p class="text-xs font-medium text-slate-500 mt-1">Non-Tech False Positives</p>
+                <p class="text-[11px] text-slate-400">Strict gatekeeper filter</p>
             </div>
         </div>
     </div>
 
-    <!-- 3 Core Features Architecture -->
+    <!-- Core Methodology Architecture (3 Cards) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm hover:border-slate-300 transition-all">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                </svg>
+        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-2xs hover:border-slate-300 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
             </div>
             <h3 class="text-base font-bold text-slate-900">Sliding-Window Embeddings</h3>
             <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
@@ -62,11 +89,9 @@
             </p>
         </div>
 
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm hover:border-slate-300 transition-all">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                </svg>
+        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-2xs hover:border-slate-300 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             </div>
             <h3 class="text-base font-bold text-slate-900">Multi-Span Experience Parser</h3>
             <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
@@ -75,10 +100,8 @@
         </div>
 
         <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm hover:border-slate-300 transition-all">
-            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                </svg>
+            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-5 font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <h3 class="text-base font-bold text-slate-900">Baseline Floor Rescaling</h3>
             <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
