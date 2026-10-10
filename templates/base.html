@@ -4,15 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TalentPulse | Enterprise Candidate Screening</title>
-    <!-- Modern Enterprise Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- HTMX CDN -->
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
@@ -26,28 +22,25 @@
         }
     </script>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased selection:bg-blue-100 selection:text-blue-900">
+<body class="bg-[#f8fafc] text-slate-900 min-h-screen flex flex-col antialiased">
 
     <!-- Top Navigation Bar -->
-    <header class="bg-white/95 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            
-            <!-- Modern Brand Identity with SVG Emblem -->
-            <a href="/" class="flex items-center gap-3 group">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:shadow-blue-500/30 transition-all duration-200">
-                    <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 14l4-4 4 4 8-8"/>
                         <path d="M16 6h4v4"/>
                         <circle cx="8" cy="18" r="2"/>
                     </svg>
                 </div>
-                <div class="flex items-baseline gap-1.5">
+                <div class="flex items-center gap-2">
                     <span class="text-base font-bold tracking-tight text-slate-900">TalentPulse</span>
-                    <span class="text-[10px] font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.2 rounded tracking-wide">ENTERPRISE</span>
+                    <span class="text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">ENTERPRISE</span>
                 </div>
             </a>
 
-            <!-- Navigation Links -->
             <nav class="flex items-center gap-1 sm:gap-2">
                 <a href="/" class="text-sm font-medium px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
                     Home
@@ -61,7 +54,7 @@
                 <a href="/results" class="text-sm font-medium px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
                     Results
                 </a>
-                <a href="/screen" class="ml-2 hidden sm:inline-flex items-center px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                <a href="/screen" class="ml-2 hidden sm:inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     Start Screening
                 </a>
             </nav>
@@ -69,21 +62,20 @@
     </header>
 
     <!-- Main View Slot -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-10">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Professional Corporate Footer -->
+    <!-- Clean Corporate Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
             <div class="flex items-center space-x-2">
                 <span class="font-semibold text-slate-700">TalentPulse Technologies Inc.</span>
-                <span>&middot;</span>
-                <span>Candidate Screening Platform</span>
+                <span>&copy; 2026 All rights reserved.</span>
             </div>
             <div class="flex items-center space-x-6 text-slate-500">
-                <a href="#" class="hover:text-slate-900 transition">Compliance</a>
-                <a href="#" class="hover:text-slate-900 transition">Privacy Policy</a>
+                <a href="#" class="hover:text-slate-900 transition">Terms</a>
+                <a href="#" class="hover:text-slate-900 transition">Privacy</a>
                 <a href="#" class="hover:text-slate-900 transition">Documentation</a>
             </div>
         </div>
