@@ -5,7 +5,7 @@ import PyPDF2
 from docx import Document
 
 app = Flask(__name__)
-app.secret_key = 'kdu-ai-screener-group17'
+app.secret_key = 'talentpulse-ai-candidate-screener'
 
 last_results = {
     'results': [],
@@ -30,17 +30,20 @@ def extract_text_from_docx(stream):
     return '\n'.join(text)
 
 @app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html', active_page='dashboard')
+    return render_template('dashboard.html')
 
 @app.route('/screen')
 def screen():
-    return render_template('screen.html', active_page='screen')
+    return render_template('screen.html')
 
 @app.route('/results')
 def results():
     return render_template('results.html',
-                           active_page='results',
                            results=last_results['results'],
                            stats=last_results['stats'],
                            labels=last_results['labels'],
@@ -71,7 +74,7 @@ def upload():
 @app.route('/score', methods=['POST'])
 def score():
     global last_results
-    data = request.get_json()
+    data = request.get_json() or {}
     job_desc = data.get('job_desc', '')
     resumes = data.get('resumes', [])
 
