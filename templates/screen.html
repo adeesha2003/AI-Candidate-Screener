@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+
+{% block title %}Screen Candidates — AI Screening System{% endblock %}
+{% block page_title %}Screen Candidates{% endblock %}
+{% block page_subtitle %}Upload resumes and match against job requirements{% endblock %}
+
+{% block content %}
+<form id="screening-form" hx-post="/score" hx-target="#results-container" hx-swap="innerHTML" hx-indicator="#loading-indicator">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left Column: Job Description -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <h3 class="font-semibold text-gray-800 mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Job Description
+                </h3>
+                <p class="text-xs text-gray-500 mb-4">Paste the job requirements, responsibilities, and qualifications</p>
+                <textarea 
+                    name="job_desc" 
+                    id="job-desc"
+                    rows="12"
+                    class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all resize-vertical bg-gray-50 placeholder-gray-400"
+                    placeholder="Example: We are looking for a Senior AI Engineer with 5+ years of experience in machine learning, deep learning, NLP, and Python. The ideal candidate should have experience with TensorFlow or PyTorch, transformer architectures, and deploying ML models to production..."
+                    required
+                ></textarea>
+            </div>
+        </div>
+
+        <!-- Right Column: Resume Upload -->
+        <div class="space-y-6">
+            <!-- File Upload Zone -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <h3 class="font-semibold text-gray-800 mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    Upload Resumes
+                </h3>
+                <p class="text-xs text-gray-500 mb-4">Drag &amp; drop resume files or click to browse. Supports PDF and DOCX.</p>
+
+                <!-- Drop Zone -->
+                <div 
+                    id="drop-zone"
+                    class="drop-zone border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-brand-500 hover:bg-blue-50/50 transition-all duration-200"
+                    onclick="document.getElementById('file-input').click()"
+                >
+                    <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                    </svg>
+                    <p class="text-sm font-medium text-gray-600">Drag &amp; drop PDF or DOCX files here</p>
+                    <p class="text-xs text-gray-400 mt-1">or click to browse</p>
+                </div>
+                <input type="file" id="file-input" class="hidden" accept=".pdf,.docx" multiple>
+
+                <!-- Uploaded Files List -->
+                <div id="file-list" class="mt-4 space-y-2"></div>
+            </div>
+
+            <!-- Manual Text Entry (Alternative) -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-semibold text-gray-800 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                        Or Paste Resume Text
+                    </h3>
+                    <button type="button" id="add-resume-btn" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1.5 rounded-lg font-medium transition-colors">
+                        + Add Another
+                    </button>
+                </div>
+                <div id="resume-text-container" class="space-y-3">
+                    <div class="resume-entry">
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Candidate 1</label>
+                        <textarea 
+                            class="resume-text w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all resize-vertical bg-gray-50 placeholder-gray-400"
+                            rows="4"
+                            placeholder="Paste resume text here..."
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="mt-6 flex justify-center">
+        <button 
+            type="submit"
+            class="htmx-hide-on-request inline-flex items-center gap-3 bg-brand-600 hover:bg-brand-700 text-white px-8 py-4 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
+        >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+            Run AI Screening
+        </button>
+    </div>
+</form>
+
+<!-- Loading Indicator -->
+<div id="loading-indicator" class="htmx-indicator flex flex-col items-center justify-center py-12">
+    <div class="relative">
+        <div class="w-16 h-16 border-4 border-blue-200 border-t-brand-600 rounded-full animate-spin"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+        </div>
+    </div>
+    <p class="mt-4 text-sm font-medium text-gray-600">Running AI Screening Engine...</p>
+    <p class="text-xs text-gray-400 mt-1">Analyzing resumes with 4-engine hybrid ensemble</p>
+</div>
+
+<!-- Results Container (HTMX target) -->
+<div id="results-container" class="mt-6"></div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // ==================== File Upload & Drag-and-Drop ====================
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileList = document.getElementById('file-list');
+    let uploadedFiles = {};  // { filename: extracted_text }
+    let fileCounter = 0;
+
+    // Drag events
+    ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+        });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        handleFiles(files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+        fileInput.value = '';  // Reset so same file can be selected again
+    });
+
+    function handleFiles(files) {
+        Array.from(files).forEach(file => {
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (!['pdf', 'docx'].includes(ext)) {
+                alert(`Unsupported file type: .${ext}\nPlease upload PDF or DOCX files.`);
+                return;
+            }
+            uploadFile(file);
+        });
+    }
+
+    function uploadFile(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const fileId = `file-${fileCounter++}`;
+        
+        // Show uploading state
+        const fileCard = document.createElement('div');
+        fileCard.id = fileId;
+        fileCard.className = 'flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200 fade-in-up';
+        fileCard.innerHTML = `
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-700 truncate">${file.name}</p>
+                <p class="text-xs text-gray-400">Extracting text...</p>
+            </div>
+        `;
+        fileList.appendChild(fileCard);
+
+        fetch('/upload', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    uploadedFiles[fileId] = data.text;
+                    const card = document.getElementById(fileId);
+                    card.innerHTML = `
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-700 truncate">${file.name}</p>
+                            <p class="text-xs text-green-600">${data.text.length} characters extracted</p>
+                        </div>
+                        <button type="button" onclick="removeFile('${fileId}')" class="text-gray-400 hover:text-red-500 p-1 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    `;
+                } else {
+                    const card = document.getElementById(fileId);
+                    card.innerHTML = `
+                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-red-600 truncate">${file.name}</p>
+                            <p class="text-xs text-red-500">${data.error || 'Failed to extract text'}</p>
+                        </div>
+                        <button type="button" onclick="removeFile('${fileId}')" class="text-gray-400 hover:text-red-500 p-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    `;
+                }
+            })
+            .catch(err => {
+                console.error('Upload error:', err);
+                const card = document.getElementById(fileId);
+                if (card) card.remove();
+                alert(`Failed to upload ${file.name}`);
+            });
+    }
+
+    function removeFile(fileId) {
+        delete uploadedFiles[fileId];
+        const card = document.getElementById(fileId);
+        if (card) card.remove();
+    }
+
+    // ==================== Add Resume Text Entry ====================
+    let resumeCount = 1;
+    document.getElementById('add-resume-btn').addEventListener('click', () => {
+        resumeCount++;
+        const container = document.getElementById('resume-text-container');
+        const div = document.createElement('div');
+        div.className = 'resume-entry fade-in-up';
+        div.innerHTML = `
+            <div class="flex items-center justify-between mb-1">
+                <label class="block text-xs font-medium text-gray-500">Candidate ${resumeCount}</label>
+                <button type="button" onclick="this.closest('.resume-entry').remove()" class="text-xs text-red-400 hover:text-red-600">Remove</button>
+            </div>
+            <textarea 
+                class="resume-text w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all resize-vertical bg-gray-50 placeholder-gray-400"
+                rows="4"
+                placeholder="Paste resume text here..."
+            ></textarea>
+        `;
+        container.appendChild(div);
+    });
+
+    // ==================== HTMX Form Submission Override ====================
+    document.getElementById('screening-form').addEventListener('htmx:configRequest', function(evt) {
+        // Collect all resume texts (from textareas + uploaded files)
+        const resumes = [];
+        
+        // From uploaded files
+        Object.values(uploadedFiles).forEach(text => {
+            if (text && text.trim()) resumes.push(text);
+        });
+        
+        // From text areas
+        document.querySelectorAll('.resume-text').forEach(ta => {
+            if (ta.value.trim()) resumes.push(ta.value.trim());
+        });
+
+        const jobDesc = document.getElementById('job-desc').value;
+
+        if (!jobDesc.trim()) {
+            alert('Please enter a job description.');
+            evt.preventDefault();
+            return;
+        }
+
+        if (resumes.length === 0) {
+            alert('Please upload at least one resume or paste resume text.');
+            evt.preventDefault();
+            return;
+        }
+
+        // Override the request to send JSON
+        evt.detail.headers['Content-Type'] = 'application/json';
+        evt.detail.parameters = {};  // Clear form params
+    });
+
+    // Use htmx:beforeRequest to send custom JSON body
+    document.getElementById('screening-form').addEventListener('htmx:beforeRequest', function(evt) {
+        const resumes = [];
+        Object.values(uploadedFiles).forEach(text => {
+            if (text && text.trim()) resumes.push(text);
+        });
+        document.querySelectorAll('.resume-text').forEach(ta => {
+            if (ta.value.trim()) resumes.push(ta.value.trim());
+        });
+        const jobDesc = document.getElementById('job-desc').value;
+
+        if (!jobDesc.trim() || resumes.length === 0) {
+            evt.preventDefault();
+            return;
+        }
+
+        // Replace the XHR body with JSON
+        const xhr = evt.detail.xhr;
+        const originalSend = xhr.send;
+        xhr.send = function() {
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            originalSend.call(xhr, JSON.stringify({
+                job_desc: jobDesc,
+                resumes: resumes
+            }));
+        };
+    });
+</script>
+{% endblock %}

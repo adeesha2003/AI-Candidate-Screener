@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — AI Screening System{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block page_subtitle %}AI-Based Job Candidate Screening & Recommendation System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-brand-600 to-blue-700 rounded-2xl p-8 text-white mb-8 shadow-lg">
+    <div class="max-w-2xl">
+        <h1 class="text-3xl font-bold mb-2">AI-Based Job Candidate Screening System</h1>
+        <p class="text-blue-100 text-lg mb-1">Enterprise Hybrid AI Screening Engine</p>
+        <span class="inline-block bg-white/20 backdrop-blur px-3 py-1 rounded-full text-sm font-medium mt-2">
+            Version 3.0 — Real-World Robustness Release
+        </span>
+    </div>
+    <div class="mt-6">
+        <a href="/screen" class="inline-flex items-center gap-2 bg-white text-brand-700 px-6 py-3 rounded-xl font-semibold text-sm hover:bg-blue-50 transition-colors shadow-md">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+            Start Screening
+        </a>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+    <!-- Accuracy -->
+    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <span class="text-sm text-gray-500 font-medium">Classification Accuracy</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">100.00%</p>
+        <p class="text-xs text-green-600 mt-1 font-medium">12/12 exact category matches</p>
+    </div>
+
+    <!-- MAE -->
+    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                </svg>
+            </div>
+            <span class="text-sm text-gray-500 font-medium">Mean Absolute Error</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">4.68%</p>
+        <p class="text-xs text-blue-600 mt-1 font-medium">vs Gemini Ground Truth</p>
+    </div>
+
+    <!-- Pearson -->
+    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                </svg>
+            </div>
+            <span class="text-sm text-gray-500 font-medium">Pearson Correlation</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">0.9908</p>
+        <p class="text-xs text-purple-600 mt-1 font-medium">Near-perfect linear agreement</p>
+    </div>
+
+    <!-- FPR -->
+    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+            </div>
+            <span class="text-sm text-gray-500 font-medium">False Positive Rate</span>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">0.00%</p>
+        <p class="text-xs text-amber-600 mt-1 font-medium">Zero non-tech false positives</p>
+    </div>
+</div>
+
+<!-- System Overview -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- How It Works -->
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            How It Works
+        </h3>
+        <div class="space-y-4">
+            <div class="flex gap-3">
+                <div class="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600 font-bold text-sm flex-shrink-0">1</div>
+                <div>
+                    <p class="font-medium text-sm text-gray-800">Enter Job Description</p>
+                    <p class="text-xs text-gray-500">Paste or type the job requirements and qualifications</p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <div class="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600 font-bold text-sm flex-shrink-0">2</div>
+                <div>
+                    <p class="font-medium text-sm text-gray-800">Upload Candidate Resumes</p>
+                    <p class="text-xs text-gray-500">Drag &amp; drop PDF or DOCX files, or paste resume text</p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <div class="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600 font-bold text-sm flex-shrink-0">3</div>
+                <div>
+                    <p class="font-medium text-sm text-gray-800">AI Screening &amp; Ranking</p>
+                    <p class="text-xs text-gray-500">Hybrid 4-engine ensemble scores and ranks candidates instantly</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Engine Components -->
+    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            AI Engine Components
+        </h3>
+        <div class="space-y-3">
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="font-medium text-gray-700">Fine-Tuned Domain SBERT</span>
+                    <span class="text-brand-600 font-semibold">45%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2">
+                    <div class="bg-brand-500 h-2 rounded-full" style="width: 45%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="font-medium text-gray-700">Domain-Adapted TF-IDF</span>
+                    <span class="text-blue-600 font-semibold">35%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full" style="width: 35%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="font-medium text-gray-700">Bounded Skill Taxonomy</span>
+                    <span class="text-purple-600 font-semibold">15%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: 15%"></div>
+                </div>
+            </div>
+            <div>
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="font-medium text-gray-700">N-Gram Jaccard Similarity</span>
+                    <span class="text-amber-600 font-semibold">5%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2">
+                    <div class="bg-amber-500 h-2 rounded-full" style="width: 5%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tech Stack -->
+<div class="mt-6 bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+    <h3 class="font-semibold text-gray-800 mb-4">Technology Stack</h3>
+    <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium">Python 3.12</span>
+        <span class="px-3 py-1.5 bg-green-50 text-green-700 rounded-lg text-xs font-medium">Flask 3.0</span>
+        <span class="px-3 py-1.5 bg-orange-50 text-orange-700 rounded-lg text-xs font-medium">Sentence-Transformers (SBERT)</span>
+        <span class="px-3 py-1.5 bg-red-50 text-red-700 rounded-lg text-xs font-medium">PyTorch (CUDA GPU)</span>
+        <span class="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-xs font-medium">Scikit-Learn (TF-IDF)</span>
+        <span class="px-3 py-1.5 bg-cyan-50 text-cyan-700 rounded-lg text-xs font-medium">HTMX</span>
+        <span class="px-3 py-1.5 bg-sky-50 text-sky-700 rounded-lg text-xs font-medium">Tailwind CSS</span>
+        <span class="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium">Chart.js</span>
+    </div>
+</div>
+{% endblock %}

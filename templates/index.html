@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CV Screener v2.0</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI-Based Job Candidate Screening System (Advanced)</h1>
+            <p>Prototype Tester with Hybrid AI (N-Grams, Lexical & Semantic Transformers), and Human-in-the-loop</p>
+        </header>
+
+        <main>
+            <div class="left-panel">
+                <div class="card">
+                    <h2>1. Enter Job Description</h2>
+                    <textarea id="job_desc" placeholder="Paste the job description and requirements here..."></textarea>
+                </div>
+                
+                <div class="card">
+                    <h2>2. Enter Candidate Resumes</h2>
+                    <div id="resume-container">
+                        <div class="resume-entry">
+                            <label>Candidate 1 Resume</label>
+                            <textarea class="resume_text" placeholder="Paste resume text here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button id="add-resume-btn" class="secondary-btn">+ Add Another Candidate</button>
+                        <button id="calculate-btn" class="primary-btn">Run AI Matcher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="card results-card">
+                    <h2>3. Screening Results</h2>
+                    <div id="loading" class="hidden">Calculating AI scores...</div>
+                    <table id="results-table" class="hidden">
+                        <thead>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Match Score</th>
+                                <th>Result</th>
+                                <th>AI Feedback</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body">
+                            <!-- Results will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let candidateCount = 1;
+
+        document.getElementById('add-resume-btn').addEventListener('click', () => {
+            candidateCount++;
+            const container = document.getElementById('resume-container');
+            const div = document.createElement('div');
+            div.className = 'resume-entry';
+            div.innerHTML = `
+                <label>Candidate ${candidateCount} Resume</label>
+                <textarea class="resume_text" placeholder="Paste resume text here..."></textarea>
+            `;
+            container.appendChild(div);
+        });
+
+        async function sendFeedback(candidateId, feedbackType, btnElement) {
+            try {
+                const response = await fetch('/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ candidate_id: candidateId, feedback: feedbackType })
+                });
+                
+                const data = await response.json();
+                if (data.status === 'success') {
+                    // Update UI to show feedback was received
+                    const parent = btnElement.parentElement;
+                    parent.innerHTML = `<span style="color: green; font-size: 0.8rem;">Feedback Saved!</span>`;
+                }
+            } catch (error) {
+                console.error('Error sending feedback:', error);
+            }
+        }
+
+        document.getElementById('calculate-btn').addEventListener('click', async () => {
+            const jobDesc = document.getElementById('job_desc').value;
+            const resumes = Array.from(document.querySelectorAll('.resume_text')).map(ta => ta.value).filter(val => val.trim() !== '');
+
+            if (!jobDesc || resumes.length === 0) {
+                alert('Please enter a job description and at least one resume.');
+                return;
+            }
+
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('results-table').classList.add('hidden');
+
+            try {
+                const response = await fetch('/score', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        job_desc: jobDesc,
+                        resumes: resumes
+                    })
+                });
+
+                const data = await response.json();
+                
+                const tbody = document.getElementById('results-body');
+                tbody.innerHTML = '';
+
+                data.forEach(result => {
+                    const tr = document.createElement('tr');
+                    
+                    let resultClass = '';
+                    if (result.label === 'Highly Suitable') resultClass = 'result-high';
+                    else if (result.label === 'Suitable') resultClass = 'result-med';
+                    else resultClass = 'result-low';
+
+                    tr.innerHTML = `
+                        <td>${result.candidate_id}</td>
+                        <td><strong>${result.score}%</strong></td>
+                        <td class="${resultClass}">${result.label}</td>
+                        <td class="feedback-cell">
+                            <button class="feedback-btn up" onclick="sendFeedback('${result.candidate_id}', 'up', this)">👍</button>
+                            <button class="feedback-btn down" onclick="sendFeedback('${result.candidate_id}', 'down', this)">👎</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('results-table').classList.remove('hidden');
+            } catch (error) {
+                alert('Error processing data. Check console.');
+                console.error(error);
+                document.getElementById('loading').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

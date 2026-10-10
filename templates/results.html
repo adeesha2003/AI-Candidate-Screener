@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Results — AI Screening System{% endblock %}
+{% block page_title %}Screening Results{% endblock %}
+{% block page_subtitle %}View and analyze candidate screening history{% endblock %}
+
+{% block content %}
+{% if results %}
+    {% include "partials/results_table.html" %}
+{% else %}
+<div class="flex flex-col items-center justify-center py-20">
+    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+    </div>
+    <h3 class="text-lg font-semibold text-gray-600 mb-1">No Results Yet</h3>
+    <p class="text-sm text-gray-400 mb-6 text-center max-w-md">
+        Run an AI screening first to see ranked results here. Upload resumes and a job description to get started.
+    </p>
+    <a href="/screen" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-xl font-medium text-sm transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+        Go to Screening
+    </a>
+</div>
+{% endif %}
+{% endblock %}
