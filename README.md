@@ -1,4 +1,4 @@
-# AI-Based Candidate Screening System (v3.0)
+# AI-Based Candidate Screening System
 
 An end-to-end, multi-stage hybrid Natural Language Processing (NLP) screening engine designed to evaluate unstructured candidate resumes (PDF/DOCX) against complex technical job descriptions.
 
