@@ -1,128 +1,147 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto space-y-8">
-    
-    <!-- Top Executive Header -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm">
-        <div>
-            <div class="flex items-center gap-2 mb-1">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Platform Analytics</span>
-            </div>
-            <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Recruitment Intelligence Hub</h1>
-            <p class="text-sm text-slate-500 mt-1 max-w-xl">
-                Real-time validation metrics, calibration baselines, and certified ground-truth evaluation performance.
-            </p>
-        </div>
-        <div class="flex items-center gap-3">
-            <a href="/screen" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-sm hover:shadow transition-all">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                New Batch Screening
-            </a>
-        </div>
-    </div>
+<div class="space-y-10 py-4">
 
-    <!-- Core Engine Metrics -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:border-slate-300 transition-all">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-                <span class="text-xs font-semibold uppercase tracking-wider">Classification Accuracy</span>
-                <span class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </span>
+    <!-- Top Header Banner -->
+    <div class="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-gradient-to-r from-white via-slate-50/70 to-blue-50/40 p-8 sm:p-10 shadow-sm">
+        <div class="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="space-y-2">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-[11px] font-bold uppercase tracking-wider">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                    Platform Analytics & Calibration
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    Recruitment Intelligence Hub
+                </h1>
+                <p class="text-slate-600 text-sm max-w-2xl font-normal">
+                    Real-time validation metrics, mathematical calibration baselines, and certified ground-truth evaluation performance across technical roles.
+                </p>
             </div>
-            <div class="text-3xl font-extrabold text-slate-900">100.0%</div>
-            <p class="text-xs text-slate-500 mt-2">12/12 Ground truth test profiles</p>
-        </div>
-
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:border-slate-300 transition-all">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-                <span class="text-xs font-semibold uppercase tracking-wider">Mean Absolute Error</span>
-                <span class="p-1.5 rounded-lg bg-blue-50 text-blue-600">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                </span>
-            </div>
-            <div class="text-3xl font-extrabold text-slate-900">4.81%</div>
-            <p class="text-xs text-slate-500 mt-2">Measured against calibrated baseline</p>
-        </div>
-
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:border-slate-300 transition-all">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-                <span class="text-xs font-semibold uppercase tracking-wider">Discrimination Gap</span>
-                <span class="p-1.5 rounded-lg bg-indigo-50 text-indigo-600">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                </span>
-            </div>
-            <div class="text-3xl font-extrabold text-slate-900">+39.03%</div>
-            <p class="text-xs text-slate-500 mt-2">Qualified vs unqualified profile spread</p>
-        </div>
-
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm hover:border-slate-300 transition-all">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-                <span class="text-xs font-semibold uppercase tracking-wider">Non-Tech False Positives</span>
-                <span class="p-1.5 rounded-lg bg-purple-50 text-purple-600">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                </span>
-            </div>
-            <div class="text-3xl font-extrabold text-slate-900">0.00%</div>
-            <p class="text-xs text-slate-500 mt-2">Zero leakage via domain gatekeeper</p>
-        </div>
-    </div>
-
-    <!-- Verified Benchmark Dataset View -->
-    <div class="bg-white border border-slate-200/80 rounded-2xl shadow-sm overflow-hidden">
-        <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-                <h2 class="text-base font-bold text-slate-900">Benchmark Reference Set</h2>
+                <a href="/screen" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-semibold rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition-all inline-flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    New Batch Screening
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4 Colorful KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        
+        <!-- Accuracy -->
+        <div class="relative overflow-hidden rounded-2xl border border-emerald-200/80 bg-gradient-to-b from-white to-emerald-50/30 p-6 shadow-sm hover:shadow-md transition-all">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Classification Accuracy</span>
+                <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">&check;</span>
+            </div>
+            <div class="mt-4">
+                <span class="text-4xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                    100.0%
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">12/12 Ground truth test profiles</p>
+        </div>
+
+        <!-- MAE -->
+        <div class="relative overflow-hidden rounded-2xl border border-blue-200/80 bg-gradient-to-b from-white to-blue-50/30 p-6 shadow-sm hover:shadow-md transition-all">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Mean Absolute Error</span>
+                <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">&nearr;</span>
+            </div>
+            <div class="mt-4">
+                <span class="text-4xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    4.81%
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">Measured against calibrated baseline</p>
+        </div>
+
+        <!-- Discrimination Gap -->
+        <div class="relative overflow-hidden rounded-2xl border border-indigo-200/80 bg-gradient-to-b from-white to-indigo-50/30 p-6 shadow-sm hover:shadow-md transition-all">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Discrimination Gap</span>
+                <span class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold">&harr;</span>
+            </div>
+            <div class="mt-4">
+                <span class="text-4xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    +39.03%
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">Qualified vs unqualified profile spread</p>
+        </div>
+
+        <!-- False Positives -->
+        <div class="relative overflow-hidden rounded-2xl border border-sky-200/80 bg-gradient-to-b from-white to-sky-50/30 p-6 shadow-sm hover:shadow-md transition-all">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Non-Tech False Positives</span>
+                <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-xs font-bold">&#128737;</span>
+            </div>
+            <div class="mt-4">
+                <span class="text-4xl font-black bg-gradient-to-r from-sky-600 via-blue-700 to-indigo-800 bg-clip-text text-transparent">
+                    0.00%
+                </span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1.5 font-medium">Zero leakage via domain gatekeeper</p>
+        </div>
+
+    </div>
+
+    <!-- Benchmark Reference Set Table -->
+    <div class="rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-9 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-100">
+            <div>
+                <h3 class="text-lg font-bold text-slate-900">Benchmark Reference Set</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Empirically validated ground-truth comparison against production test roles.</p>
             </div>
-            <span class="text-xs font-medium px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg">Target: Senior Python & AI Engineer</span>
+            <span class="inline-flex items-center px-3 py-1 bg-slate-100 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700">
+                Target: Senior Python &amp; AI Engineer
+            </span>
         </div>
 
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-                <thead class="bg-slate-50/75 border-b border-slate-100 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                    <tr>
-                        <th class="py-3.5 px-6">Candidate Profile</th>
-                        <th class="py-3.5 px-6">Domain Discipline</th>
-                        <th class="py-3.5 px-6">System Score</th>
-                        <th class="py-3.5 px-6">Ground Truth</th>
-                        <th class="py-3.5 px-6 text-right">Qualification Status</th>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                        <th class="py-3 px-4">Candidate Profile</th>
+                        <th class="py-3 px-4">Domain Discipline</th>
+                        <th class="py-3 px-4">System Score</th>
+                        <th class="py-3 px-4">Ground Truth</th>
+                        <th class="py-3 px-4 text-right">Qualification Status</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 text-slate-700">
-                    <tr class="hover:bg-slate-50/60 transition-colors">
-                        <td class="py-4 px-6 font-semibold text-slate-900">Alex Chen</td>
-                        <td class="py-4 px-6 text-xs text-slate-500">AI / ML Engineer (5 YOE)</td>
-                        <td class="py-4 px-6 font-mono font-bold text-slate-900">89.3%</td>
-                        <td class="py-4 px-6 font-mono text-slate-500">90.0%</td>
-                        <td class="py-4 px-6 text-right">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <tbody class="divide-y divide-slate-100 text-xs">
+                    <tr class="hover:bg-slate-50/80 transition-colors">
+                        <td class="py-4 px-4 font-bold text-slate-900">Alex Chen</td>
+                        <td class="py-4 px-4 text-slate-600">AI / ML Engineer (5 YOE)</td>
+                        <td class="py-4 px-4 font-extrabold text-blue-600">89.3%</td>
+                        <td class="py-4 px-4 font-semibold text-slate-500">90.0%</td>
+                        <td class="py-4 px-4 text-right">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                 Highly Suitable
                             </span>
                         </td>
                     </tr>
-                    <tr class="hover:bg-slate-50/60 transition-colors">
-                        <td class="py-4 px-6 font-semibold text-slate-900">Sarah Miller</td>
-                        <td class="py-4 px-6 text-xs text-slate-500">Data Analyst (2 YOE)</td>
-                        <td class="py-4 px-6 font-mono font-bold text-slate-900">48.2%</td>
-                        <td class="py-4 px-6 font-mono text-slate-500">55.0%</td>
-                        <td class="py-4 px-6 text-right">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                    <tr class="hover:bg-slate-50/80 transition-colors">
+                        <td class="py-4 px-4 font-bold text-slate-900">Sarah Miller</td>
+                        <td class="py-4 px-4 text-slate-600">Data Analyst (2 YOE)</td>
+                        <td class="py-4 px-4 font-extrabold text-indigo-600">48.2%</td>
+                        <td class="py-4 px-4 font-semibold text-slate-500">55.0%</td>
+                        <td class="py-4 px-4 text-right">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
                                 Suitable
                             </span>
                         </td>
                     </tr>
-                    <tr class="hover:bg-slate-50/60 transition-colors">
-                        <td class="py-4 px-6 font-semibold text-slate-900">Marcus Vance</td>
-                        <td class="py-4 px-6 text-xs text-slate-500">Executive Chef (Non-Technical)</td>
-                        <td class="py-4 px-6 font-mono font-bold text-slate-900">0.0%</td>
-                        <td class="py-4 px-6 font-mono text-slate-500">5.0%</td>
-                        <td class="py-4 px-6 text-right">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200">
+                    <tr class="hover:bg-slate-50/80 transition-colors">
+                        <td class="py-4 px-4 font-bold text-slate-900">Marcus Vance</td>
+                        <td class="py-4 px-4 text-slate-600">Executive Chef (Non-Technical)</td>
+                        <td class="py-4 px-4 font-extrabold text-slate-400">0.0%</td>
+                        <td class="py-4 px-4 font-semibold text-slate-400">5.0%</td>
+                        <td class="py-4 px-4 text-right">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
                                 Low Match
                             </span>
                         </td>

@@ -1,113 +1,202 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="space-y-20 py-2">
+<div class="space-y-16 py-4">
 
-    <!-- Seamless Natural Hero (No heavy enclosing boxes) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center pt-6">
+    <!-- 1. Seamless Open-Flow Enterprise Hero (No Outer Box Border) -->
+    <div class="relative pt-4 pb-8 sm:pt-8 sm:pb-12 overflow-visible">
         
-        <!-- Left: Text Column -->
-        <div class="lg:col-span-7 space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 bg-sky-50 border border-sky-200/80 rounded-full text-sky-700 text-xs font-semibold">
-                <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
-                AI in action &middot; Automated Technical Screening
-            </div>
+        <!-- Soft Ambient Background Gradients (Naturally blends with body background) -->
+        <div class="pointer-events-none absolute -top-16 left-1/4 h-96 w-96 rounded-full bg-blue-100/50 blur-3xl -z-10"></div>
+        <div class="pointer-events-none absolute top-6 right-10 h-96 w-96 rounded-full bg-indigo-100/40 blur-3xl -z-10"></div>
+        <div class="pointer-events-none absolute -bottom-10 left-10 h-72 w-72 rounded-full bg-sky-100/40 blur-3xl -z-10"></div>
 
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
-                AI in action: <br />
-                <span class="text-blue-600">Automatically find the best candidates</span>
-            </h1>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl font-normal">
-                Learn how AI can be used to automatically find and rank candidates for specific engineering roles, saving recruiters significant time and effort without semantic drift.
-            </p>
+            <!-- Left: Typography & Actions (Flows directly on the page) -->
+            <div class="lg:col-span-6 space-y-6">
+                <!-- Status Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/70 text-blue-700 text-xs font-bold backdrop-blur-sm shadow-xs">
+                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                    <span>AI in action &middot; Automated Technical Screening</span>
+                </div>
 
-            <div class="pt-2 flex flex-wrap items-center gap-3">
-                <a href="/screen" class="px-7 py-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-sm hover:shadow transition-all flex items-center gap-2">
-                    Launch Batch Screener
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </a>
-                <a href="/dashboard" class="px-7 py-3 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 shadow-2xs transition-all">
-                    Explore Analytics
-                </a>
-            </div>
-        </div>
+                <!-- Gradient Hero Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight text-slate-900 leading-[1.12]">
+                    AI in action: <br />
+                    <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent">
+                        Automatically find the best candidates
+                    </span>
+                </h1>
+                
+                <!-- Description -->
+                <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-xl">
+                    Evaluate technical CVs with calibrated Sentence-BERT embeddings, multi-span tenure extraction, and zero false-positive domain gating — saving recruiters hours per batch without semantic drift.
+                </p>
 
-        <!-- Right: Natural Graphic Display (No clunky double border frames) -->
-        <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-full">
-                <!-- Soft background glow instead of hard borders -->
-                <div class="absolute inset-0 bg-sky-100/60 rounded-3xl filter blur-xl transform -rotate-1 scale-95 -z-10"></div>
-                <img src="{{ url_for('static', filename='images/dashboard-preview.png') }}" 
-                     alt="JobFit AI Screening Platform" 
-                     class="w-full h-auto rounded-2xl object-cover shadow-xl shadow-slate-200/60 border border-slate-100">
+                <!-- Action CTA Buttons -->
+                <div class="pt-2 flex flex-wrap items-center gap-3.5">
+                    <a href="/screen" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-semibold rounded-xl shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 transition-all flex items-center gap-2.5 active:scale-95 cursor-pointer">
+                        Launch Batch Screener
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                    <a href="/dashboard" class="px-6 py-3.5 bg-white/90 hover:bg-white text-slate-700 hover:text-blue-700 text-xs font-semibold rounded-xl border border-slate-200 shadow-xs hover:shadow transition-all flex items-center gap-2">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        Explore Analytics
+                    </a>
+                </div>
             </div>
-        </div>
 
-    </div>
+            <!-- Right: Hero Image Container (Floating naturally with soft organic shadow) -->
+            <div class="lg:col-span-6 flex justify-center">
+                <div class="relative w-full max-w-lg transition-transform duration-500 hover:scale-[1.01]">
+                    <!-- Soft ambient glow behind image -->
+                    <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-500/15 to-indigo-500/15 blur-xl"></div>
+                    
+                    <div class="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/70 shadow-xl shadow-slate-200/50 backdrop-blur-sm">
+                        <img src="{{ url_for('static', filename='images/dashboard-preview.png') }}" 
+                             alt="JobFit AI Screening Flow" 
+                             class="w-full h-auto object-cover max-h-[380px] block">
+                    </div>
+                </div>
+            </div>
 
-    <!-- Verified Performance Numbers Strip -->
-    <div class="bg-white border border-slate-200/90 rounded-2xl p-8 sm:p-10 shadow-xs">
-        <div class="text-center mb-8">
-            <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Empirically Validated Evaluation Benchmarks</h2>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
-            <div class="pt-2 md:pt-0">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">100.0%</span>
-                <p class="text-xs font-medium text-slate-500 mt-1">Classification Accuracy</p>
-                <p class="text-[11px] text-slate-400">12/12 ground truth profiles</p>
-            </div>
-            <div class="pt-4 md:pt-0">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">4.81%</span>
-                <p class="text-xs font-medium text-slate-500 mt-1">Mean Absolute Error (MAE)</p>
-                <p class="text-[11px] text-slate-400">Benchmark divergence</p>
-            </div>
-            <div class="pt-4 md:pt-0">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">+39.03%</span>
-                <p class="text-xs font-medium text-slate-500 mt-1">Discrimination Gap</p>
-                <p class="text-[11px] text-slate-400">Tech vs non-tech profiles</p>
-            </div>
-            <div class="pt-4 md:pt-0">
-                <span class="text-3xl sm:text-4xl font-extrabold text-slate-900">0.00%</span>
-                <p class="text-xs font-medium text-slate-500 mt-1">Non-Tech False Positives</p>
-                <p class="text-[11px] text-slate-400">Strict gatekeeper filter</p>
-            </div>
         </div>
     </div>
 
-    <!-- Core Methodology Architecture (3 Cards) -->
+    <!-- 2. Colorful Benchmark Numbers Strip -->
+    <div class="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white/95 backdrop-blur-md p-8 sm:p-10 shadow-xl shadow-slate-200/50">
+        
+        <!-- Subtle Glow Accents -->
+        <div class="pointer-events-none absolute -top-12 -left-12 h-44 w-44 rounded-full bg-blue-100/40 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-12 -right-12 h-44 w-44 rounded-full bg-indigo-100/40 blur-3xl"></div>
+
+        <div class="text-center mb-8 relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                Empirically Validated Evaluation Benchmarks
+            </span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100 relative z-10">
+            
+            <!-- Metric 1: Classification Accuracy -->
+            <div class="pt-3 md:pt-0 group px-2">
+                <div class="inline-block transition-transform duration-300 group-hover:scale-105">
+                    <span class="text-4xl sm:text-5xl font-black bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 bg-clip-text text-transparent tracking-tight">
+                        100.0%
+                    </span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 mt-2 flex items-center justify-center gap-1.5">
+                    Classification Accuracy
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                </p>
+                <p class="text-[11px] text-slate-400 mt-0.5 font-medium">12/12 ground truth profiles</p>
+            </div>
+
+            <!-- Metric 2: Mean Absolute Error -->
+            <div class="pt-4 md:pt-0 group px-2">
+                <div class="inline-block transition-transform duration-300 group-hover:scale-105">
+                    <span class="text-4xl sm:text-5xl font-black bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 bg-clip-text text-transparent tracking-tight">
+                        4.81%
+                    </span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 mt-2 flex items-center justify-center gap-1.5">
+                    Mean Absolute Error (MAE)
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                </p>
+                <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Benchmark divergence</p>
+            </div>
+
+            <!-- Metric 3: Discrimination Gap -->
+            <div class="pt-4 md:pt-0 group px-2">
+                <div class="inline-block transition-transform duration-300 group-hover:scale-105">
+                    <span class="text-4xl sm:text-5xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent tracking-tight">
+                        +39.03%
+                    </span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 mt-2 flex items-center justify-center gap-1.5">
+                    Discrimination Gap
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                </p>
+                <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Tech vs non-tech profiles</p>
+            </div>
+
+            <!-- Metric 4: Non-Tech False Positives -->
+            <div class="pt-4 md:pt-0 group px-2">
+                <div class="inline-block transition-transform duration-300 group-hover:scale-105">
+                    <span class="text-4xl sm:text-5xl font-black bg-gradient-to-r from-sky-600 via-blue-700 to-indigo-800 bg-clip-text text-transparent tracking-tight">
+                        0.00%
+                    </span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 mt-2 flex items-center justify-center gap-1.5">
+                    Non-Tech False Positives
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+                </p>
+                <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Strict gatekeeper filter</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 3. Colorful Core Architectural Methodology (3 Cards) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-2xs hover:border-slate-300 transition-all">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 font-bold">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        
+        <!-- Card 1: Sliding-Window Embeddings -->
+        <div class="group relative overflow-hidden rounded-2xl border border-blue-200/70 bg-gradient-to-b from-white to-blue-50/30 p-7 shadow-sm hover:shadow-md hover:border-blue-300 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
             </div>
-            <h3 class="text-base font-bold text-slate-900">Sliding-Window Embeddings</h3>
+            <h3 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Sliding-Window Embeddings</h3>
             <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
                 Processes candidate text with Sentence-BERT using overlapping 140-word semantic windows to preserve context across multi-page resumes.
             </p>
+            <div class="mt-4 pt-3 border-t border-blue-100 flex items-center justify-between text-[11px] font-semibold text-blue-600">
+                <span>Dense Max-Pooling</span>
+                <span>&rarr;</span>
+            </div>
         </div>
 
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-2xs hover:border-slate-300 transition-all">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 font-bold">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <!-- Card 2: Multi-Span Experience Parser -->
+        <div class="group relative overflow-hidden rounded-2xl border border-emerald-200/70 bg-gradient-to-b from-white to-emerald-50/30 p-7 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-xs">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
             </div>
-            <h3 class="text-base font-bold text-slate-900">Multi-Span Experience Parser</h3>
+            <h3 class="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Multi-Span Experience Parser</h3>
             <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
                 Parses discontinuous employment intervals alongside tenure claims, awarding quadratic experience scaling to verified technical roles.
             </p>
+            <div class="mt-4 pt-3 border-t border-emerald-100 flex items-center justify-between text-[11px] font-semibold text-emerald-600">
+                <span>Dual Regex Strategy</span>
+                <span>&rarr;</span>
+            </div>
         </div>
 
-        <div class="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm hover:border-slate-300 transition-all">
-            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-5 font-bold">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <!-- Card 3: Baseline Floor Rescaling -->
+        <div class="group relative overflow-hidden rounded-2xl border border-purple-200/70 bg-gradient-to-b from-white to-purple-50/30 p-7 shadow-sm hover:shadow-md hover:border-purple-300 transition-all">
+            <div class="w-12 h-12 rounded-xl bg-purple-100/80 text-purple-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all shadow-xs">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
             </div>
-            <h3 class="text-base font-bold text-slate-900">Baseline Floor Rescaling</h3>
+            <h3 class="text-base font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Baseline Floor Rescaling</h3>
             <p class="text-xs text-slate-500 mt-2.5 leading-relaxed">
                 Deducts universal syntax baseline overlap (0.22) and executes a strict gatekeeper filter to ensure non-technical profiles score 0%.
             </p>
+            <div class="mt-4 pt-3 border-t border-purple-100 flex items-center justify-between text-[11px] font-semibold text-purple-600">
+                <span>Zero False-Positive Gate</span>
+                <span>&rarr;</span>
+            </div>
         </div>
+
     </div>
 
 </div>

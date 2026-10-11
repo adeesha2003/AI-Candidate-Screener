@@ -1,34 +1,118 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto space-y-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-xl font-bold text-gray-900">Historical Screening Results</h1>
-            <p class="text-sm text-gray-500 mt-1">Review the latest evaluated batch profiles and rankings.</p>
+<div class="space-y-8 py-4">
+
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+        <div class="space-y-1">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-bold uppercase tracking-wider">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                Candidate Rankings &amp; Scoring
+            </div>
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Screening Evaluation Results</h1>
+            <p class="text-slate-600 text-sm">Review evaluated batch profiles, calculated suitability scores, and qualification statuses.</p>
         </div>
-        <a href="/screen" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow-sm transition">
-            New Screening
-        </a>
+        <div>
+            <a href="/screen" class="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-semibold rounded-xl shadow-sm transition-all inline-flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                New Batch Screening
+            </a>
+        </div>
     </div>
 
-    {% if results and results|length > 0 %}
-        {% include "partials/results_table.html" %}
-    {% else %}
-        <div class="bg-white border border-gray-200 rounded-xl p-12 text-center">
-            <div class="w-12 h-12 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto mb-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.5L19 7.5V19a2 2 0 01-2 2z"/>
-                </svg>
+    {% if candidates and candidates|length > 0 %}
+    <!-- Evaluation Results Table -->
+    <div class="rounded-3xl border border-slate-200/90 bg-white p-7 sm:p-9 shadow-sm">
+        <div class="flex items-center justify-between pb-5 mb-5 border-b border-slate-100">
+            <div>
+                <h3 class="text-lg font-bold text-slate-900">Ranked Shortlist ({{ candidates|length }} candidates evaluated)</h3>
+                <p class="text-xs text-slate-500">Sorted automatically by calibrated ensemble similarity.</p>
             </div>
-            <h3 class="text-base font-semibold text-gray-800">No Evaluations Found</h3>
-            <p class="text-xs text-gray-500 mt-1 max-w-sm mx-auto">Upload resumes and run the screening engine to inspect match ranks and suitability breakdowns.</p>
-            <div class="mt-5">
-                <a href="/screen" class="px-4 py-2 bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold rounded-lg transition shadow-sm">
-                    Go to Screener
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="text-[11px] font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
+                        <th class="py-3 px-4">Rank</th>
+                        <th class="py-3 px-4">Candidate Profile</th>
+                        <th class="py-3 px-4">Experience</th>
+                        <th class="py-3 px-4">Key Extracted Skills</th>
+                        <th class="py-3 px-4">JobFit Score</th>
+                        <th class="py-3 px-4 text-right">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-xs">
+                    {% for c in candidates %}
+                    <tr class="hover:bg-slate-50/80 transition-colors">
+                        <td class="py-4 px-4 font-black text-slate-400">#{{ loop.index }}</td>
+                        <td class="py-4 px-4 font-bold text-slate-900">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 font-black flex items-center justify-center text-xs">
+                                    {{ c.name[0] }}
+                                </span>
+                                <div>
+                                    <p class="font-bold text-slate-900">{{ c.name }}</p>
+                                    <p class="text-[10px] text-slate-400 font-normal">{{ c.filename }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-4 text-slate-600 font-semibold">{{ c.tenure }} YOE</td>
+                        <td class="py-4 px-4">
+                            <div class="flex flex-wrap gap-1">
+                                {% for s in c.skills %}
+                                <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-medium border border-slate-200 uppercase">{{ s }}</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="py-4 px-4 font-extrabold text-base bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                            {{ c.score }}%
+                        </td>
+                        <td class="py-4 px-4 text-right">
+                            {% if c.status == 'Highly Suitable' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                Highly Suitable
+                            </span>
+                            {% elif c.status == 'Suitable' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                                Suitable
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                                Low Match
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <!-- Empty State -->
+    <div class="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-12 text-center shadow-sm">
+        <div class="max-w-md mx-auto space-y-5">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-100 to-indigo-100 text-blue-600 border border-blue-200/60 mx-auto flex items-center justify-center shadow-inner">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            </div>
+            
+            <div class="space-y-1.5">
+                <h3 class="text-base font-bold text-slate-900">No Evaluated Batches in Current Session</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Upload resumes and execute the screening engine on target requirements to inspect detailed match ranks and suitability breakdowns.
+                </p>
+            </div>
+
+            <div class="pt-2">
+                <a href="/screen" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl shadow-sm transition-all inline-flex items-center gap-2">
+                    Go to Screener Console &rarr;
                 </a>
             </div>
         </div>
+    </div>
     {% endif %}
+
 </div>
 {% endblock %}
