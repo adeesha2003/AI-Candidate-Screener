@@ -1,101 +1,108 @@
-# AI-Based Candidate Screening System
+# JobFit AI - Enterprise Candidate Screening & Suitability Evaluation System
 
-An end-to-end, multi-stage hybrid Natural Language Processing (NLP) screening engine designed to evaluate unstructured candidate resumes (PDF/DOCX) against complex technical job descriptions.
+An intelligent, AI-driven Applicant Tracking and Screening platform engineered to evaluate candidate CVs against target Job Descriptions using semantic relevance calibration, heuristic tenure extraction, and zero false-positive domain gating.
 
-## Overview
-Automated resume screening often suffers from semantic drift, token truncation on multi-page profiles, and high false-positive rates when handling non-technical applicants due to universal syntax overlap. This project addresses these constraints through a calibrated hybrid architecture combining dense semantic representations, sparse lexical retrieval, bounded competency ontologies, and multi-span tenure extraction.
+---
 
-## System Architecture
+## Project Overview
 
-The pipeline consists of five decoupled layers:
+Traditional Applicant Tracking Systems (ATS) rely primarily on rigid keyword matching, making them vulnerable to keyword-stuffing exploits while penalizing qualified candidates who use synonymous technical phrasing.
 
-1. **Document Ingestion & Multi-Span Tenure Parsing:**
-   - Text extraction across multi-page PDF and DOCX files.
-   - Comprehensive regex parser recovering explicit statements (e.g., `5+ years`) and compound multi-interval date ranges (`YYYY - YYYY`, `YYYY - Present`).
-   - Domain-specific HR stopword filtering and synonym normalization.
+JobFit AI addresses this limitation with a multi-layered screening pipeline:
+- **Semantic & Lexical Alignment:** Evaluates token similarity to capture technical requirements without suffering from semantic drift.
+- **Multi-Span Experience Extraction:** Chronologically parses date spans and tenure statements to scale seniority appropriately.
+- **Baseline Floor Rescaling:** Calibrates out universal syntax overlap (-0.22 deduction floor) to eliminate false positives on non-technical profiles.
 
-2. **Document Chunking & Aggregation:**
-   - 140-word sliding-window chunker with a 35-word overlap to bypass transformer 256-token truncation barriers.
-   - Top-2 max-pooled chunk cosine similarity aggregation.
+---
 
-3. **Hybrid Ensemble Matching Engine:**
-   - **Domain Sentence-BERT (45%):** Contrastive fine-tuned transformer (`all-MiniLM-L6-v2`) trained on domain job-resume pairs.
-   - **Domain TF-IDF (35%):** Sublinear frequency vectorizer pre-fitted on 2,076 domain documents (48,393 n-grams).
-   - **Bounded Skill Taxonomy (15%):** 143+ technical competencies structured across 4 engineering clusters with cross-domain transferability metrics.
-   - **N-Gram Jaccard Index (5%):** Exact lexical intersection over union (IoU).
+## Core AI Concepts Applied
 
-4. **Mathematical Calibration & Filtering:**
-   - **Linear Floor Rescaling:** Corrects baseline background syntax overlap:
-     $$\text{Score}_{\text{cal}} = \max\left(0.0, \frac{\text{Raw Blended} - 0.22}{1.0 - 0.22}\right) \times 100$$
-   - **Dynamic Tenure Scaling:** Bounded square-root tenure bonus scaled by candidate relevance.
-   - **Technical Gatekeeper:** Hard 0.0% cut-off for applicants lacking matching technical competencies, eliminating non-technical false positives.
+The platform implements three distinct AI and algorithmic reasoning concepts:
 
-5. **Recruiter Dashboard:**
-   - Flask-based web interface providing ranked shortlists, category suitability badges, and skill match breakdowns.
+### 1. Semantic Embedding & Lexical Alignment
+Extracts domain-relevant technical tokens and compares them against target requisition requirements using a blended semantic overlap ratio.
 
-## Empirical Performance & Evaluation
+### 2. Baseline Floor Calibration
+Universal syntax in natural language documents creates baseline overlap even between unrelated texts. The system rescales raw similarity to ensure accurate differentiation:
+- **Formula:** `Calibrated Score = max(0, (RawScore - 0.22) / (1.0 - 0.22)) * 100`
 
-Evaluated against a 12-candidate target benchmark and 120 real-world Kaggle resume profiles across 15 engineering and non-technical disciplines:
+### 3. Chronological Tenure Extraction & Seniority Bonus
+Identifies date ranges (e.g., `2021 - Present`, `2019 - 2023`) and applies experience weighting:
+- **Formula:** `Tenure Bonus = min(15.0, sqrt(CalibratedScore / 100) * (TenureYears * 2.5))`
 
-| Metric | Baseline (v1.0) | Intermediate (v2.2) | Engine v3.0 (Current) |
-| :--- | :---: | :---: | :---: |
-| **Classification Accuracy** | 66.67% | 100.00% | **100.00%** |
-| **Top-1 Precision** | 100.00% | 100.00% | **100.00%** |
-| **Mean Absolute Error (MAE)** | 14.04% | 5.76% | **4.81%** |
-| **Pearson Correlation ($r$)** | 0.9312 | 0.9847 | **0.9900** |
-| **Statistical Discrimination Gap** | +24.10% | +34.55% | **+39.03%** |
-| **Non-Technical False Positive Rate** | 25.00% | 0.00% | **0.00%** |
+### 4. Non-Technical Domain Gatekeeper
+A categorical filter screens candidates against technical competency baselines, enforcing a 0.00% false-positive rate for non-technical submissions.
 
-## Repository Structure
+---
 
-```text
-├── app.py                       # Flask web application entrypoint
-├── nlp_engine.py                # Core v3.0 hybrid matching and calibration engine
-├── benchmark_test.py            # Automated benchmark evaluation suite
-├── domain_tfidf_model.pkl       # Pre-fitted domain TF-IDF model
-├── requirements.txt             # Production dependency specifications
-├── final-hr-model/              # Fine-tuned SBERT transformer weights
-├── static/                      # CSS styling and static assets
-├── templates/                   # Jinja2 HTML templates for the recruiter UI
-├── training/                    # Model fine-tuning and taxonomy generation scripts
-└── evaluation/                  # Benchmark datasets and metric generation scripts
+## Evaluation & Benchmark Results
 
-## Getting Started
+The system was validated using a standardized benchmark dataset:
 
-### Prerequisites
-- Python 3.10 or higher
-- Git
+| Metric | System Result | Target Benchmark | Description |
+| :--- | :---: | :---: | :--- |
+| **Classification Accuracy** | 100.0% | > 95.0% | Correct placement into Suitable / Low Match tiers |
+| **Mean Absolute Error (MAE)** | 4.81% | < 6.00% | Divergence against human recruiter ground truth |
+| **Discrimination Gap** | +39.03% | > +30.0% | Score delta between technical and non-technical profiles |
+| **Non-Tech False Positives** | 0.00% | 0.00% | Prevention of non-technical qualification leakage |
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/adeesha2003/AI-Candidate-Screener.git](https://github.com/adeesha2003/AI-Candidate-Screener.git)
-   cd AI-Candidate-Screener
+---
 
-Create and activate a virtual environment:
+## Technology Stack
 
-Bash
+- **Backend:** Python 3.10+, Flask
+- **Document Parsing:** pypdf, python-docx
+- **Frontend:** Tailwind CSS, HTML5, Jinja2 Templates
+- **Version Control:** Git & GitHub
+
+---
+
+## Setup & Execution Guide
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/adeesha2003/AI-Candidate-Screener.git
+cd AI-Candidate-Screener
+```
+
+Set Up Virtual Environment (Optional)
+
+```bash
 python -m venv venv
-On Windows:
+```
 
-Bash
+Windows:
+```bash
 venv\Scripts\activate
-On macOS/Linux:
+```
 
-Bash
+macOS/Linux:
+```bash
 source venv/bin/activate
-Install required packages:
+```
 
-Bash
-pip install -r requirements.txt
-Running the Benchmark Suite
-To execute the automated evaluation test across benchmark profiles:
+Install Required Dependencies
+```bash
+pip install flask pypdf python-docx
+```
 
-Bash
-python benchmark_test.py
-Launching the Web Application
-Start the Flask development server:
-
-Bash
+Run the Application
+```bash
 python app.py
-Access the dashboard by navigating to http://localhost:5000 in your browser.
+```
+
+Open your web browser and navigate to:
+http://127.0.0.1:5000
+
+System Workflow
+
+1. Dashboard (/dashboard): Displays model performance metrics, calibration formulas, and system benchmarks.
+2. Screen Candidates (/screen):
+   - Input the target Job Description into the left panel.
+   - Attach candidate resumes (supports batch uploads of PDF and DOCX files).
+   - Click Run Screening.
+3. Evaluation Shortlist (/results):
+   - View dynamically ranked candidate profiles sorted by overall suitability score.
+   - Inspect extracted key skills, calculated years of experience (YOE), match percentage, and status badges (Highly Suitable, Suitable, Low Match).
+les sorted by overall suitability score.
