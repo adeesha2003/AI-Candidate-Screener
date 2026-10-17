@@ -105,4 +105,4 @@ System Workflow
 3. Evaluation Shortlist (/results):
    - View dynamically ranked candidate profiles sorted by overall suitability score.
    - Inspect extracted key skills, calculated years of experience (YOE), match percentage, and status badges (Highly Suitable, Suitable, Low Match).
-les sorted by overall suitability score.
+
