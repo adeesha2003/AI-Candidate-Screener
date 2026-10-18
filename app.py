@@ -128,7 +128,7 @@ def screen():
 
         valid_files = [
             file for file in files
-            
+
             if file and file.filename and allowed_file(file.filename)
         ]
 
@@ -155,7 +155,14 @@ def screen():
                 else:
                     text = extract_text_from_docx(file_path)
                 
+                
+                # Skip resumes with no readable text
+                if not text or not text.strip():
+                    print(f"Skipping unreadable or empty resume: {filename}")
+                    continue
+
                 score, status, tenure, skills = compute_jobfit_score(text, jd_text)
+                
                 candidate_name = filename.rsplit('.', 1)[0].replace('_', ' ').replace('-', ' ').title()
                 
                 # Update existing entry if file re-uploaded; otherwise append new candidate
