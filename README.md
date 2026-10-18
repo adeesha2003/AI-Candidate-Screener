@@ -105,4 +105,38 @@ System Workflow
 3. Evaluation Shortlist (/results):
    - View dynamically ranked candidate profiles sorted by overall suitability score.
    - Inspect extracted key skills, calculated years of experience (YOE), match percentage, and status badges (Highly Suitable, Suitable, Low Match).
-les sorted by overall suitability score.
+
+## Troubleshooting Guide
+
+### Python Not Recognized
+If Python is not recognized in the terminal, verify the installation:
+
+```bash
+python --version
+```
+
+Ensure Python is installed and added to the system PATH.
+
+### Missing Python Packages
+If the application reports missing modules, install the project dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### Application Does Not Start
+Check that the terminal is opened in the project root directory and run:
+
+```bash
+python app.py
+```
+
+Review the terminal output for error messages.
+
+### Unable to Access the Web Application
+After starting the Flask server, open the local address displayed in the terminal, typically:
+
+http://127.0.0.1:5000
+
+If the page does not load, verify that the server is running and that the configured port is available.
+
