@@ -133,7 +133,11 @@ def screen():
         ]
 
         if not valid_files:
-            return "Please upload at least one valid PDF or DOCX resume.", 400
+            return render_template(
+                "screen.html",
+                error="Please upload at least one valid PDF or DOCX resume.",
+                job_description=jd_text
+            ), 400
 
         if len(valid_files) != len([
             file for file in files if file and file.filename

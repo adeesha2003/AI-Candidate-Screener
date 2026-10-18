@@ -30,7 +30,7 @@
                 <div class="flex-1 min-h-[340px] flex">
                     <textarea id="job_description" name="job_description" required
                         placeholder="Paste target job responsibilities, required skills, tools, frameworks, and minimum experience requirements..." 
-                        class="w-full h-full text-xs font-mono text-slate-800 bg-slate-50/50 border border-slate-200 rounded-2xl p-4 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all outline-none resize-none leading-relaxed"></textarea>
+                        class="w-full h-full text-xs font-mono text-slate-800 bg-slate-50/50 border border-slate-200 rounded-2xl p-4 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all outline-none resize-none leading-relaxed">{{ job_description | default('', true) }}</textarea>
                 </div>
             </div>
             
@@ -57,9 +57,13 @@
                     </div>
                     <span class="mt-4 text-xs font-bold text-slate-800">Click to upload or drag files here</span>
                     <span class="text-[11px] text-slate-400 mt-1 font-medium">Supported formats: PDF, DOCX</span>
-                    <input id="resumes" name="resumes" type="file" multiple required class="hidden" onchange="handleFileSelect(this)">
+                    <input id="resumes" name="resumes" type="file" multiple class="hidden" onchange="handleFileSelect(this)">
                 </label>
-
+{% if error %}
+<div class="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-xl text-xs font-medium" role="alert">
+    {{ error }}
+</div>
+{% endif %}
                 <!-- Status Counter -->
                 <div class="space-y-1">
                     <div class="flex items-center justify-between text-xs px-1">
@@ -72,14 +76,35 @@
 
             <!-- Submit Button -->
             <div class="pt-2">
-                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95">
+                <button type="submit" id="screeningBtn" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    Run Screening
+                    <span id="screeningLabel">Run Screening</span>
                 </button>
             </div>
         </div>
 
     </form>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("screeningBtn");
+
+    if (!button) return;
+
+    const form = button.closest("form");
+    if (!form) return;
+
+    form.addEventListener("submit", function () {
+        if (!form.checkValidity()) return;
+
+        button.disabled = true;
+
+        const label = button.querySelector("#screeningLabel");
+        if (label) {
+            label.textContent = "Screening candidates... Please wait";
+        }
+    });
+});
+</script>
 
 </div>
 
