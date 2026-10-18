@@ -41,3 +41,17 @@ allowed_file = namespace["allowed_file"]
 )
 def test_allowed_file(filename, expected):
     assert allowed_file(filename) == expected
+
+def test_no_resume_uploaded():
+    from app import app
+
+    app.config["TESTING"] = True
+    client = app.test_client()
+
+    response = client.post(
+        "/screen",
+        data={"job_description": "Python Developer"}
+    )
+
+    assert response.status_code == 400
+    assert b"Please upload at least one valid PDF or DOCX resume" in response.data 
