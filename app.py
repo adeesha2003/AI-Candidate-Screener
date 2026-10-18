@@ -122,6 +122,25 @@ def screen():
         jd_text = request.form.get('job_description', '').strip()
         files = request.files.getlist('resumes')
         
+        # Validate screening inputs before processing
+        if not jd_text:
+            return "Please enter a job description before screening.", 400
+
+        valid_files = [
+            file for file in files
+            
+            if file and file.filename and allowed_file(file.filename)
+        ]
+
+        if not valid_files:
+            return "Please upload at least one valid PDF or DOCX resume.", 400
+
+        if len(valid_files) != len([
+            file for file in files if file and file.filename
+        ]):
+            return "Unsupported file format. Only PDF and DOCX files are allowed.", 400
+
+        
         # Retrieve existing evaluation history from session
         evaluation_results = session.get('screening_results', [])
         
