@@ -61,6 +61,45 @@ def parse_years_experience(text):
         return int(explicit_match.group(1))
     
     return 1
+def validate_resume_content(text):
+    # Reject empty or unreadable documents
+    if not text or not text.strip():
+        return False, "The uploaded document is empty or contains no readable text."
+
+    text_lower = text.lower()
+
+    # Common resume-related sections
+    resume_sections = [
+        "education", "experience", "employment",
+        "skills", "projects", "internship",
+        "qualifications", "certifications",
+        "professional summary", "profile"
+    ]
+
+    # Check for an email address
+    has_email = bool(re.search(
+        r'\b[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,}\b', text
+    ))
+
+    # Count resume-related sections
+    section_count = sum(
+        1 for section in resume_sections
+        if re.search(
+            r'\b' + re.escape(section) + r'\b',
+            text_lower
+        )
+    )
+
+    # Require contact information and resume structure
+    if has_email and section_count >= 2:
+        return True, ""
+
+    return False, (
+        "This document does not appear to be a candidate resume. "
+        "Please upload a resume containing contact information "
+        "and relevant sections such as education, skills, "
+        "projects, or work experience."
+    )
 
 def compute_jobfit_score(cv_text, jd_text):
     tech_skills = [
@@ -161,9 +200,15 @@ def screen():
                 
                 
                 # Skip resumes with no readable text
-                if not text or not text.strip():
-                    print(f"Skipping unreadable or empty resume: {filename}")
-                    continue
+                # Validate document content before candidate scoring
+                is_valid_resume, validation_message = validate_resume_content(text)
+
+                if not is_valid_resume:
+                        return render_template(
+                           "screen.html",
+                            error=f"{filename}: {validation_message}",
+                            job_description=jd_text
+                        ), 400
 
                 score, status, tenure, skills = compute_jobfit_score(text, jd_text)
                 
